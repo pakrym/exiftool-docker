@@ -2,6 +2,8 @@ FROM alpine:3.12
 MAINTAINER Tom Van Herreweghe
 
 ENV EXIFTOOL_VERSION=12.00
+ENV SOURCE=/mnt/source
+ENV DESTINATION=/mnt/dest/exif.json
 
 RUN apk add --no-cache perl make
 RUN cd /tmp \
@@ -18,4 +20,4 @@ VOLUME /tmp
 
 WORKDIR /tmp
 
-ENTRYPOINT ["exiftool"]
+CMD ["bash", "exiftool -G -j -fast4 -r ${SOURCE} > ${DESTINATION}" ]
